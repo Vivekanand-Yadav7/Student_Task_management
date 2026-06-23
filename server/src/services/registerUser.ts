@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
-import prisma from '../config/db.js';
+import { prisma } from '../config/db.js';
 
 const registerUser = async (req: Request, res: Response): Promise<void> => {
     try {
