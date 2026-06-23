@@ -1,16 +1,26 @@
-const prisma = require('../config/db');
-const bcrypt = require('bcryptjs');
+import { Request, Response } from 'express';
+import bcrypt from 'bcryptjs';
+import prisma from '../config/db.js';
 
-const registerUser = async (req, res) => {
+const registerUser = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password } = req.body as {
+            name?: string;
+            email?: string;
+            password?: string;
+        };
+
         if (!name || !email || !password) {
-            return res.status(400).json({ error: "All fields are required" });
+            res.status(400).json({ error: 'All fields are required' });
+            return;
         }
+
         const user_with_same_email = await prisma.user.findUnique({ where: { email } });
         if (user_with_same_email) {
-            return res.status(400).json({ error: "User with this email already exists" });
+            res.status(400).json({ error: 'User with this email already exists' });
+            return;
         }
+
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const user = await prisma.user.create({
@@ -26,6 +36,6 @@ const registerUser = async (req, res) => {
         console.error('Error registering user:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
-}
+};
 
-module.exports = registerUser;
+export default registerUser;
