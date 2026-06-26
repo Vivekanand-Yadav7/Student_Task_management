@@ -14,7 +14,7 @@ export const createTask = async (req: AuthRequest, res: Response): Promise<void>
 
         const userId = req.user.id;
 
-        if (!title || !duration_required) {
+        if (!title || typeof duration_required !== 'number') {
             res.status(400).json({ error: 'Title and duration_required are required' });
             return;
         }

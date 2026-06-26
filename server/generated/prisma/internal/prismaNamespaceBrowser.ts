@@ -52,7 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Post: 'Post'
+  Task: 'Task'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -83,15 +83,19 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const PostScalarFieldEnum = {
+export const TaskScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  content: 'content',
-  published: 'published',
-  authorId: 'authorId'
+  subtitle: 'subtitle',
+  duration_required: 'duration_required',
+  is_complete: 'is_complete',
+  completed_subtitle_count: 'completed_subtitle_count',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
 } as const
 
-export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -108,12 +112,4 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
-export const NullsOrder = {
-  first: 'first',
-  last: 'last'
-} as const
-
-export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
