@@ -12,6 +12,9 @@ export const allTasks = async (req: Request, res: Response): Promise<void> => {
         const tasks = await prisma.task.findMany({
             where: {
                 userId: id
+            },
+            include: {
+                subtitles: true
             }
         });
         res.status(200).json(tasks);

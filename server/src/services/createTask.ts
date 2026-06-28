@@ -2,9 +2,10 @@ import { Response } from 'express';
 import { prisma } from '../config/db.js';
 import { AuthRequest } from '../middleware/authCheck.js';
 
+
 export const createTask = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
-        const { title, subtitle, duration_required } = req.body;
+        const { title, duration_required } = req.body;
         
         // Ensure user is attached from authCheck middleware
         if (!req.user || typeof req.user === 'string') {
@@ -22,7 +23,6 @@ export const createTask = async (req: AuthRequest, res: Response): Promise<void>
         const task = await prisma.task.create({
             data: {
                 title,
-                subtitle: subtitle || [], // Array of strings
                 duration_required,
                 userId
             }
@@ -30,7 +30,7 @@ export const createTask = async (req: AuthRequest, res: Response): Promise<void>
 
         res.status(201).json({
             message: 'Task created successfully',
-            task
+            task: task
         });
     } catch (error) {
         console.error('Error creating task:', error);

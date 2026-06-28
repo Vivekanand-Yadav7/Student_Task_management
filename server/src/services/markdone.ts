@@ -32,12 +32,17 @@ export const markDone = async (req: AuthRequest, res: Response): Promise<void> =
             return;
         }
 
+        await prisma.subtitle.updateMany({
+            where: { taskId: id },
+            data: { is_complete: true }
+        });
+
         const updatedTask = await prisma.task.update({
             where: { id },
             data: {
-                is_complete: true,
-                completed_subtitle_count: task.subtitle.length
-            }
+                is_complete: true
+            },
+            include: { subtitles: true }
         });
 
         res.status(200).json({

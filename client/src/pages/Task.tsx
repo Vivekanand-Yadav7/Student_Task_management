@@ -119,12 +119,31 @@ export default function Task() {
                   </div>
                   <button className="text-gray-400 hover:text-gray-600"><MoreVertical size={16} /></button>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 mb-3">
                   <div className="flex items-center gap-1.5 text-xs text-gray-500">
                     <Clock size={14} />
                     <span>7:00-8:00 AM</span>
                   </div>
                   <span className="px-2 py-0.5 bg-orange-50 text-orange-600 text-[11px] font-medium rounded-full">High Priority</span>
+                </div>
+                
+                {/* Subtitles Section */}
+                <div className="mt-2 pl-2 border-l-2 border-gray-100">
+                  <h5 className="text-xs font-semibold text-gray-700 mb-2">Subtitles / Subtasks</h5>
+                  <div className="flex flex-col gap-2 mb-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 border-2 border-gray-300 rounded-sm cursor-pointer hover:border-blue-500"></div>
+                      <span className="text-xs text-gray-600">Solve Two Sum</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 border-2 border-gray-300 rounded-sm cursor-pointer hover:border-blue-500"></div>
+                      <span className="text-xs text-gray-600">Solve Best Time to Buy and Sell Stock</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input type="text" placeholder="Add a new subtitle..." className="flex-1 p-2 text-xs border border-gray-200 rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" />
+                    <button className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium rounded-md transition-colors">Add</button>
+                  </div>
                 </div>
               </div>
             </div>
