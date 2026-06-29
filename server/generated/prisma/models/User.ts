@@ -191,6 +191,9 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   tasks?: Prisma.TaskListRelationFilter
+  slots?: Prisma.SlotListRelationFilter
+  activeSlot?: Prisma.XOR<Prisma.ActiveSlotNullableScalarRelationFilter, Prisma.ActiveSlotWhereInput> | null
+  revisionTasks?: Prisma.RevisionTaskListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -201,6 +204,9 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tasks?: Prisma.TaskOrderByRelationAggregateInput
+  slots?: Prisma.SlotOrderByRelationAggregateInput
+  activeSlot?: Prisma.ActiveSlotOrderByWithRelationInput
+  revisionTasks?: Prisma.RevisionTaskOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -214,6 +220,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   tasks?: Prisma.TaskListRelationFilter
+  slots?: Prisma.SlotListRelationFilter
+  activeSlot?: Prisma.XOR<Prisma.ActiveSlotNullableScalarRelationFilter, Prisma.ActiveSlotWhereInput> | null
+  revisionTasks?: Prisma.RevisionTaskListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -248,6 +257,9 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
+  slots?: Prisma.SlotCreateNestedManyWithoutUserInput
+  activeSlot?: Prisma.ActiveSlotCreateNestedOneWithoutUserInput
+  revisionTasks?: Prisma.RevisionTaskCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -258,6 +270,9 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
+  slots?: Prisma.SlotUncheckedCreateNestedManyWithoutUserInput
+  activeSlot?: Prisma.ActiveSlotUncheckedCreateNestedOneWithoutUserInput
+  revisionTasks?: Prisma.RevisionTaskUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -268,6 +283,9 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
+  slots?: Prisma.SlotUpdateManyWithoutUserNestedInput
+  activeSlot?: Prisma.ActiveSlotUpdateOneWithoutUserNestedInput
+  revisionTasks?: Prisma.RevisionTaskUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -278,6 +296,9 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
+  slots?: Prisma.SlotUncheckedUpdateManyWithoutUserNestedInput
+  activeSlot?: Prisma.ActiveSlotUncheckedUpdateOneWithoutUserNestedInput
+  revisionTasks?: Prisma.RevisionTaskUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -361,6 +382,48 @@ export type UserUpdateOneRequiredWithoutTasksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTasksInput, Prisma.UserUpdateWithoutTasksInput>, Prisma.UserUncheckedUpdateWithoutTasksInput>
 }
 
+export type UserCreateNestedOneWithoutSlotsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSlotsInput, Prisma.UserUncheckedCreateWithoutSlotsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSlotsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSlotsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSlotsInput, Prisma.UserUncheckedCreateWithoutSlotsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSlotsInput
+  upsert?: Prisma.UserUpsertWithoutSlotsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSlotsInput, Prisma.UserUpdateWithoutSlotsInput>, Prisma.UserUncheckedUpdateWithoutSlotsInput>
+}
+
+export type UserCreateNestedOneWithoutActiveSlotInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutActiveSlotInput, Prisma.UserUncheckedCreateWithoutActiveSlotInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutActiveSlotInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutActiveSlotNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutActiveSlotInput, Prisma.UserUncheckedCreateWithoutActiveSlotInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutActiveSlotInput
+  upsert?: Prisma.UserUpsertWithoutActiveSlotInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutActiveSlotInput, Prisma.UserUpdateWithoutActiveSlotInput>, Prisma.UserUncheckedUpdateWithoutActiveSlotInput>
+}
+
+export type UserCreateNestedOneWithoutRevisionTasksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRevisionTasksInput, Prisma.UserUncheckedCreateWithoutRevisionTasksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRevisionTasksInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutRevisionTasksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRevisionTasksInput, Prisma.UserUncheckedCreateWithoutRevisionTasksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRevisionTasksInput
+  upsert?: Prisma.UserUpsertWithoutRevisionTasksInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRevisionTasksInput, Prisma.UserUpdateWithoutRevisionTasksInput>, Prisma.UserUncheckedUpdateWithoutRevisionTasksInput>
+}
+
 export type UserCreateWithoutTasksInput = {
   id?: string
   name: string
@@ -368,6 +431,9 @@ export type UserCreateWithoutTasksInput = {
   password: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  slots?: Prisma.SlotCreateNestedManyWithoutUserInput
+  activeSlot?: Prisma.ActiveSlotCreateNestedOneWithoutUserInput
+  revisionTasks?: Prisma.RevisionTaskCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTasksInput = {
@@ -377,6 +443,9 @@ export type UserUncheckedCreateWithoutTasksInput = {
   password: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  slots?: Prisma.SlotUncheckedCreateNestedManyWithoutUserInput
+  activeSlot?: Prisma.ActiveSlotUncheckedCreateNestedOneWithoutUserInput
+  revisionTasks?: Prisma.RevisionTaskUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTasksInput = {
@@ -402,6 +471,9 @@ export type UserUpdateWithoutTasksInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slots?: Prisma.SlotUpdateManyWithoutUserNestedInput
+  activeSlot?: Prisma.ActiveSlotUpdateOneWithoutUserNestedInput
+  revisionTasks?: Prisma.RevisionTaskUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTasksInput = {
@@ -411,6 +483,201 @@ export type UserUncheckedUpdateWithoutTasksInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slots?: Prisma.SlotUncheckedUpdateManyWithoutUserNestedInput
+  activeSlot?: Prisma.ActiveSlotUncheckedUpdateOneWithoutUserNestedInput
+  revisionTasks?: Prisma.RevisionTaskUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSlotsInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
+  activeSlot?: Prisma.ActiveSlotCreateNestedOneWithoutUserInput
+  revisionTasks?: Prisma.RevisionTaskCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSlotsInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
+  activeSlot?: Prisma.ActiveSlotUncheckedCreateNestedOneWithoutUserInput
+  revisionTasks?: Prisma.RevisionTaskUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSlotsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSlotsInput, Prisma.UserUncheckedCreateWithoutSlotsInput>
+}
+
+export type UserUpsertWithoutSlotsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSlotsInput, Prisma.UserUncheckedUpdateWithoutSlotsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSlotsInput, Prisma.UserUncheckedCreateWithoutSlotsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSlotsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSlotsInput, Prisma.UserUncheckedUpdateWithoutSlotsInput>
+}
+
+export type UserUpdateWithoutSlotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
+  activeSlot?: Prisma.ActiveSlotUpdateOneWithoutUserNestedInput
+  revisionTasks?: Prisma.RevisionTaskUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSlotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
+  activeSlot?: Prisma.ActiveSlotUncheckedUpdateOneWithoutUserNestedInput
+  revisionTasks?: Prisma.RevisionTaskUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutActiveSlotInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
+  slots?: Prisma.SlotCreateNestedManyWithoutUserInput
+  revisionTasks?: Prisma.RevisionTaskCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutActiveSlotInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
+  slots?: Prisma.SlotUncheckedCreateNestedManyWithoutUserInput
+  revisionTasks?: Prisma.RevisionTaskUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutActiveSlotInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutActiveSlotInput, Prisma.UserUncheckedCreateWithoutActiveSlotInput>
+}
+
+export type UserUpsertWithoutActiveSlotInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutActiveSlotInput, Prisma.UserUncheckedUpdateWithoutActiveSlotInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutActiveSlotInput, Prisma.UserUncheckedCreateWithoutActiveSlotInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutActiveSlotInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutActiveSlotInput, Prisma.UserUncheckedUpdateWithoutActiveSlotInput>
+}
+
+export type UserUpdateWithoutActiveSlotInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
+  slots?: Prisma.SlotUpdateManyWithoutUserNestedInput
+  revisionTasks?: Prisma.RevisionTaskUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutActiveSlotInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
+  slots?: Prisma.SlotUncheckedUpdateManyWithoutUserNestedInput
+  revisionTasks?: Prisma.RevisionTaskUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutRevisionTasksInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tasks?: Prisma.TaskCreateNestedManyWithoutUserInput
+  slots?: Prisma.SlotCreateNestedManyWithoutUserInput
+  activeSlot?: Prisma.ActiveSlotCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutRevisionTasksInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutUserInput
+  slots?: Prisma.SlotUncheckedCreateNestedManyWithoutUserInput
+  activeSlot?: Prisma.ActiveSlotUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutRevisionTasksInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRevisionTasksInput, Prisma.UserUncheckedCreateWithoutRevisionTasksInput>
+}
+
+export type UserUpsertWithoutRevisionTasksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRevisionTasksInput, Prisma.UserUncheckedUpdateWithoutRevisionTasksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRevisionTasksInput, Prisma.UserUncheckedCreateWithoutRevisionTasksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRevisionTasksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRevisionTasksInput, Prisma.UserUncheckedUpdateWithoutRevisionTasksInput>
+}
+
+export type UserUpdateWithoutRevisionTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tasks?: Prisma.TaskUpdateManyWithoutUserNestedInput
+  slots?: Prisma.SlotUpdateManyWithoutUserNestedInput
+  activeSlot?: Prisma.ActiveSlotUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRevisionTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutUserNestedInput
+  slots?: Prisma.SlotUncheckedUpdateManyWithoutUserNestedInput
+  activeSlot?: Prisma.ActiveSlotUncheckedUpdateOneWithoutUserNestedInput
 }
 
 
@@ -420,10 +687,14 @@ export type UserUncheckedUpdateWithoutTasksInput = {
 
 export type UserCountOutputType = {
   tasks: number
+  slots: number
+  revisionTasks: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tasks?: boolean | UserCountOutputTypeCountTasksArgs
+  slots?: boolean | UserCountOutputTypeCountSlotsArgs
+  revisionTasks?: boolean | UserCountOutputTypeCountRevisionTasksArgs
 }
 
 /**
@@ -443,6 +714,20 @@ export type UserCountOutputTypeCountTasksArgs<ExtArgs extends runtime.Types.Exte
   where?: Prisma.TaskWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSlotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SlotWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRevisionTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RevisionTaskWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -452,6 +737,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   tasks?: boolean | Prisma.User$tasksArgs<ExtArgs>
+  slots?: boolean | Prisma.User$slotsArgs<ExtArgs>
+  activeSlot?: boolean | Prisma.User$activeSlotArgs<ExtArgs>
+  revisionTasks?: boolean | Prisma.User$revisionTasksArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -485,6 +773,9 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tasks?: boolean | Prisma.User$tasksArgs<ExtArgs>
+  slots?: boolean | Prisma.User$slotsArgs<ExtArgs>
+  activeSlot?: boolean | Prisma.User$activeSlotArgs<ExtArgs>
+  revisionTasks?: boolean | Prisma.User$revisionTasksArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -494,6 +785,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     tasks: Prisma.$TaskPayload<ExtArgs>[]
+    slots: Prisma.$SlotPayload<ExtArgs>[]
+    activeSlot: Prisma.$ActiveSlotPayload<ExtArgs> | null
+    revisionTasks: Prisma.$RevisionTaskPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -897,6 +1191,9 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tasks<T extends Prisma.User$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  slots<T extends Prisma.User$slotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$slotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SlotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  activeSlot<T extends Prisma.User$activeSlotArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activeSlotArgs<ExtArgs>>): Prisma.Prisma__ActiveSlotClient<runtime.Types.Result.GetResult<Prisma.$ActiveSlotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  revisionTasks<T extends Prisma.User$revisionTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$revisionTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RevisionTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1346,6 +1643,73 @@ export type User$tasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.TaskScalarFieldEnum | Prisma.TaskScalarFieldEnum[]
+}
+
+/**
+ * User.slots
+ */
+export type User$slotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Slot
+   */
+  select?: Prisma.SlotSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Slot
+   */
+  omit?: Prisma.SlotOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SlotInclude<ExtArgs> | null
+  where?: Prisma.SlotWhereInput
+  orderBy?: Prisma.SlotOrderByWithRelationInput | Prisma.SlotOrderByWithRelationInput[]
+  cursor?: Prisma.SlotWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SlotScalarFieldEnum | Prisma.SlotScalarFieldEnum[]
+}
+
+/**
+ * User.activeSlot
+ */
+export type User$activeSlotArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ActiveSlot
+   */
+  select?: Prisma.ActiveSlotSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ActiveSlot
+   */
+  omit?: Prisma.ActiveSlotOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ActiveSlotInclude<ExtArgs> | null
+  where?: Prisma.ActiveSlotWhereInput
+}
+
+/**
+ * User.revisionTasks
+ */
+export type User$revisionTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RevisionTask
+   */
+  select?: Prisma.RevisionTaskSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RevisionTask
+   */
+  omit?: Prisma.RevisionTaskOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RevisionTaskInclude<ExtArgs> | null
+  where?: Prisma.RevisionTaskWhereInput
+  orderBy?: Prisma.RevisionTaskOrderByWithRelationInput | Prisma.RevisionTaskOrderByWithRelationInput[]
+  cursor?: Prisma.RevisionTaskWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RevisionTaskScalarFieldEnum | Prisma.RevisionTaskScalarFieldEnum[]
 }
 
 /**

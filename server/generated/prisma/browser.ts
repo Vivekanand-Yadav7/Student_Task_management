@@ -27,3 +27,23 @@ export type User = Prisma.UserModel
  * 
  */
 export type Task = Prisma.TaskModel
+/**
+ * Model Subtitle
+ * 
+ */
+export type Subtitle = Prisma.SubtitleModel
+/**
+ * Model Slot
+ * 
+ */
+export type Slot = Prisma.SlotModel
+/**
+ * Model ActiveSlot
+ * 
+ */
+export type ActiveSlot = Prisma.ActiveSlotModel
+/**
+ * Model RevisionTask
+ * 
+ */
+export type RevisionTask = Prisma.RevisionTaskModel

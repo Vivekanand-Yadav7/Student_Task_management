@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Home,
   CheckSquare,
@@ -36,7 +36,24 @@ const productivityData = [
   { name: 'Sun', value: 80 }
 ];
 
+const slotTypeStyles: Record<string, { border: string; badge: string; badgeText: string; label: string }> = {
+  revision:         { border: 'border-l-purple-500', badge: 'bg-purple-100', badgeText: 'text-purple-700', label: 'Revision' },
+  new_task:         { border: 'border-l-blue-500',   badge: 'bg-blue-100',   badgeText: 'text-blue-700',   label: 'New Task' },
+  backlog:          { border: 'border-l-red-500',    badge: 'bg-red-100',    badgeText: 'text-red-700',    label: 'Backlog' },
+  extra_curicullar: { border: 'border-l-emerald-500',badge: 'bg-emerald-100',badgeText: 'text-emerald-700',label: 'Extra Curricular' },
+};
+
 export default function Dashboard() {
+  const [slots, setSlots] = useState<any[]>([]);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    fetch('/api/slots', { headers: { 'Authorization': `Bearer ${token}` } })
+      .then(r => r.ok ? r.json() : [])
+      .then(data => setSlots(Array.isArray(data) ? data : []))
+      .catch(() => {});
+  }, []);
+
   return (
     <>
 
@@ -96,40 +113,34 @@ export default function Dashboard() {
         <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
           <div className="flex justify-between items-center mb-5">
             <h2 className="text-lg font-semibold text-gray-900">Today's Schedule</h2>
-            <a href="#" className="text-sm text-blue-500 font-medium hover:underline">View All</a>
+            <a href="/time-planner" className="text-sm text-blue-500 font-medium hover:underline">View All</a>
           </div>
           
           <div className="flex flex-col border-t border-gray-100">
-            <div className="flex justify-between items-center bg-white py-4 border-b border-gray-100 border-l-4 border-l-purple-500 pl-3">
-              <div>
-                <h4 className="text-sm font-medium text-gray-900 mb-1">DSA Practice</h4>
-                <p className="text-xs text-gray-500">7:00-8:00 AM</p>
+            {slots.length === 0 ? (
+              <div className="py-8 text-center text-sm text-gray-400">
+                No slots booked yet. <a href="/time-planner" className="text-blue-500 hover:underline">Create one →</a>
               </div>
-              <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">High Priority</span>
-            </div>
-            
-            <div className="flex justify-between items-center bg-white py-4 border-b border-gray-100 border-l-4 border-l-blue-500 pl-3">
-              <div>
-                <h4 className="text-sm font-medium text-gray-900 mb-1">College Work</h4>
-                <p className="text-xs text-gray-500">8:00-9:00 AM</p>
-              </div>
-              <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">Medium Priority</span>
-            </div>
-            
-            <div className="flex justify-between items-center bg-white py-4 border-b border-gray-100 border-l-4 border-l-emerald-500 pl-3">
-              <div>
-                <h4 className="text-sm font-medium text-gray-900 mb-1">Revision</h4>
-                <p className="text-xs text-gray-500">5:00-6:00 PM</p>
-              </div>
-              <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-medium">3 topics</span>
-            </div>
-            
-            <div className="flex justify-between items-center bg-white py-4 border-l-4 border-l-amber-500 pl-3">
-              <div>
-                <h4 className="text-sm font-medium text-gray-900 mb-1">Backlog Clearing</h4>
-                <p className="text-xs text-gray-500">8:00-9:00 PM</p>
-              </div>
-            </div>
+            ) : (
+              slots.map((slot, idx) => {
+                const style = slotTypeStyles[slot.slot_type] ?? { border: 'border-l-gray-400', badge: 'bg-gray-100', badgeText: 'text-gray-700', label: slot.slot_type };
+                const isLast = idx === slots.length - 1;
+                return (
+                  <div
+                    key={slot.id}
+                    className={`flex justify-between items-center bg-white py-4 border-l-4 pl-3 ${style.border} ${isLast ? '' : 'border-b border-gray-100'}`}
+                  >
+                    <div>
+                      <h4 className="text-sm font-medium text-gray-900 mb-1">{style.label}</h4>
+                      <p className="text-xs text-gray-500">{slot.start_time} – {slot.end_time}</p>
+                    </div>
+                    <span className={`px-3 py-1 ${style.badge} ${style.badgeText} rounded-full text-xs font-medium`}>
+                      {style.label}
+                    </span>
+                  </div>
+                );
+              })
+            )}
           </div>
         </section>
       </main>

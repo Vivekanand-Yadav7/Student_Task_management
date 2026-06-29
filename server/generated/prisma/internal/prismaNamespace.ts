@@ -385,7 +385,11 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  Task: 'Task'
+  Task: 'Task',
+  Subtitle: 'Subtitle',
+  Slot: 'Slot',
+  ActiveSlot: 'ActiveSlot',
+  RevisionTask: 'RevisionTask'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -401,7 +405,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "task"
+    modelProps: "user" | "task" | "subtitle" | "slot" | "activeSlot" | "revisionTask"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -553,6 +557,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Subtitle: {
+      payload: Prisma.$SubtitlePayload<ExtArgs>
+      fields: Prisma.SubtitleFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SubtitleFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubtitlePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SubtitleFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubtitlePayload>
+        }
+        findFirst: {
+          args: Prisma.SubtitleFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubtitlePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SubtitleFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubtitlePayload>
+        }
+        findMany: {
+          args: Prisma.SubtitleFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubtitlePayload>[]
+        }
+        create: {
+          args: Prisma.SubtitleCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubtitlePayload>
+        }
+        createMany: {
+          args: Prisma.SubtitleCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SubtitleCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubtitlePayload>[]
+        }
+        delete: {
+          args: Prisma.SubtitleDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubtitlePayload>
+        }
+        update: {
+          args: Prisma.SubtitleUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubtitlePayload>
+        }
+        deleteMany: {
+          args: Prisma.SubtitleDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SubtitleUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SubtitleUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubtitlePayload>[]
+        }
+        upsert: {
+          args: Prisma.SubtitleUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubtitlePayload>
+        }
+        aggregate: {
+          args: Prisma.SubtitleAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSubtitle>
+        }
+        groupBy: {
+          args: Prisma.SubtitleGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SubtitleGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SubtitleCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SubtitleCountAggregateOutputType> | number
+        }
+      }
+    }
+    Slot: {
+      payload: Prisma.$SlotPayload<ExtArgs>
+      fields: Prisma.SlotFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SlotFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SlotPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SlotFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SlotPayload>
+        }
+        findFirst: {
+          args: Prisma.SlotFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SlotPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SlotFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SlotPayload>
+        }
+        findMany: {
+          args: Prisma.SlotFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SlotPayload>[]
+        }
+        create: {
+          args: Prisma.SlotCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SlotPayload>
+        }
+        createMany: {
+          args: Prisma.SlotCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SlotCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SlotPayload>[]
+        }
+        delete: {
+          args: Prisma.SlotDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SlotPayload>
+        }
+        update: {
+          args: Prisma.SlotUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SlotPayload>
+        }
+        deleteMany: {
+          args: Prisma.SlotDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SlotUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SlotUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SlotPayload>[]
+        }
+        upsert: {
+          args: Prisma.SlotUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SlotPayload>
+        }
+        aggregate: {
+          args: Prisma.SlotAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSlot>
+        }
+        groupBy: {
+          args: Prisma.SlotGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SlotGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SlotCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SlotCountAggregateOutputType> | number
+        }
+      }
+    }
+    ActiveSlot: {
+      payload: Prisma.$ActiveSlotPayload<ExtArgs>
+      fields: Prisma.ActiveSlotFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ActiveSlotFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActiveSlotPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ActiveSlotFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActiveSlotPayload>
+        }
+        findFirst: {
+          args: Prisma.ActiveSlotFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActiveSlotPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ActiveSlotFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActiveSlotPayload>
+        }
+        findMany: {
+          args: Prisma.ActiveSlotFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActiveSlotPayload>[]
+        }
+        create: {
+          args: Prisma.ActiveSlotCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActiveSlotPayload>
+        }
+        createMany: {
+          args: Prisma.ActiveSlotCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ActiveSlotCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActiveSlotPayload>[]
+        }
+        delete: {
+          args: Prisma.ActiveSlotDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActiveSlotPayload>
+        }
+        update: {
+          args: Prisma.ActiveSlotUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActiveSlotPayload>
+        }
+        deleteMany: {
+          args: Prisma.ActiveSlotDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ActiveSlotUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ActiveSlotUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActiveSlotPayload>[]
+        }
+        upsert: {
+          args: Prisma.ActiveSlotUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ActiveSlotPayload>
+        }
+        aggregate: {
+          args: Prisma.ActiveSlotAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateActiveSlot>
+        }
+        groupBy: {
+          args: Prisma.ActiveSlotGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ActiveSlotGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ActiveSlotCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ActiveSlotCountAggregateOutputType> | number
+        }
+      }
+    }
+    RevisionTask: {
+      payload: Prisma.$RevisionTaskPayload<ExtArgs>
+      fields: Prisma.RevisionTaskFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RevisionTaskFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RevisionTaskPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RevisionTaskFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RevisionTaskPayload>
+        }
+        findFirst: {
+          args: Prisma.RevisionTaskFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RevisionTaskPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RevisionTaskFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RevisionTaskPayload>
+        }
+        findMany: {
+          args: Prisma.RevisionTaskFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RevisionTaskPayload>[]
+        }
+        create: {
+          args: Prisma.RevisionTaskCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RevisionTaskPayload>
+        }
+        createMany: {
+          args: Prisma.RevisionTaskCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RevisionTaskCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RevisionTaskPayload>[]
+        }
+        delete: {
+          args: Prisma.RevisionTaskDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RevisionTaskPayload>
+        }
+        update: {
+          args: Prisma.RevisionTaskUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RevisionTaskPayload>
+        }
+        deleteMany: {
+          args: Prisma.RevisionTaskDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RevisionTaskUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RevisionTaskUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RevisionTaskPayload>[]
+        }
+        upsert: {
+          args: Prisma.RevisionTaskUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RevisionTaskPayload>
+        }
+        aggregate: {
+          args: Prisma.RevisionTaskAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRevisionTask>
+        }
+        groupBy: {
+          args: Prisma.RevisionTaskGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RevisionTaskGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RevisionTaskCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RevisionTaskCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -607,16 +907,67 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const TaskScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  subtitle: 'subtitle',
   duration_required: 'duration_required',
   is_complete: 'is_complete',
-  completed_subtitle_count: 'completed_subtitle_count',
+  priority: 'priority',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  slotId: 'slotId'
+} as const
+
+export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
+
+
+export const SubtitleScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  is_complete: 'is_complete',
+  taskId: 'taskId'
+} as const
+
+export type SubtitleScalarFieldEnum = (typeof SubtitleScalarFieldEnum)[keyof typeof SubtitleScalarFieldEnum]
+
+
+export const SlotScalarFieldEnum = {
+  id: 'id',
+  slot_type: 'slot_type',
+  start_time: 'start_time',
+  end_time: 'end_time',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId'
 } as const
 
-export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
+export type SlotScalarFieldEnum = (typeof SlotScalarFieldEnum)[keyof typeof SlotScalarFieldEnum]
+
+
+export const ActiveSlotScalarFieldEnum = {
+  id: 'id',
+  start_time: 'start_time',
+  end_time: 'end_time',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type ActiveSlotScalarFieldEnum = (typeof ActiveSlotScalarFieldEnum)[keyof typeof ActiveSlotScalarFieldEnum]
+
+
+export const RevisionTaskScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  duration_required: 'duration_required',
+  is_complete: 'is_complete',
+  priority: 'priority',
+  date: 'date',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  originalTaskId: 'originalTaskId',
+  userId: 'userId'
+} as const
+
+export type RevisionTaskScalarFieldEnum = (typeof RevisionTaskScalarFieldEnum)[keyof typeof RevisionTaskScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -633,6 +984,14 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 
@@ -687,6 +1046,34 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'Priority'
+ */
+export type EnumPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Priority'>
+    
+
+
+/**
+ * Reference to a field of type 'Priority[]'
+ */
+export type ListEnumPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Priority[]'>
+    
+
+
+/**
+ * Reference to a field of type 'SlotType'
+ */
+export type EnumSlotTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SlotType'>
+    
+
+
+/**
+ * Reference to a field of type 'SlotType[]'
+ */
+export type ListEnumSlotTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SlotType[]'>
     
 
 
@@ -815,6 +1202,10 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   task?: Prisma.TaskOmit
+  subtitle?: Prisma.SubtitleOmit
+  slot?: Prisma.SlotOmit
+  activeSlot?: Prisma.ActiveSlotOmit
+  revisionTask?: Prisma.RevisionTaskOmit
 }
 
 /* Types for Logging */

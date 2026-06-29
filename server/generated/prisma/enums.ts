@@ -9,7 +9,20 @@
 * 🟢 You can import this file directly.
 */
 
+export const Priority = {
+  HIGH: 'HIGH',
+  MEDIUM: 'MEDIUM',
+  LEAST: 'LEAST'
+} as const
+
+export type Priority = (typeof Priority)[keyof typeof Priority]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const SlotType = {
+  revision: 'revision',
+  new_task: 'new_task',
+  backlog: 'backlog',
+  extra_curicullar: 'extra_curicullar'
+} as const
+
+export type SlotType = (typeof SlotType)[keyof typeof SlotType]

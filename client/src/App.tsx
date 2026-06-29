@@ -9,11 +9,16 @@ import Revision from './pages/Revision';
 import SlotPlanner from './pages/SlotPlanner';
 import Analytics from './pages/Analytics';
 import Profile from './pages/Profile';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="daily-tasks" element={<Task />} />

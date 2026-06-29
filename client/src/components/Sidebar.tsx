@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   Home,
   CheckSquare,
@@ -8,10 +8,43 @@ import {
   RefreshCcw,
   CalendarDays,
   BarChart2,
-  User
+  User,
+  LogOut
 } from 'lucide-react';
 
 export default function Sidebar() {
+  const [user, setUser] = useState<{ name: string; email: string } | null>(null);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const navigate = useNavigate();
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (e) {
+        console.error('Failed to parse user from local storage');
+      }
+    }
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowProfileMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
   const navItems = [
     { name: 'Dashboard', path: '/', icon: <Home size={20} /> },
     { name: 'Daily Tasks', path: '/daily-tasks', icon: <CheckSquare size={20} /> },
@@ -27,12 +60,35 @@ export default function Sidebar() {
     <aside className="hidden md:flex w-[260px] bg-gray-50 border-r border-gray-200 flex-col py-6 px-4 shrink-0">
       <div className="text-lg font-bold text-gray-900 mb-6 px-3">StudyFlow</div>
       
-      <div className="flex items-center gap-3 p-3 bg-white rounded-xl mb-6 border border-gray-200 shadow-sm">
-        <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Profile" className="w-10 h-10 rounded-full object-cover" />
-        <div className="overflow-hidden">
-          <h3 className="text-sm font-semibold text-gray-900 truncate">Sarah Johnson</h3>
-          <p className="text-xs text-gray-500 truncate">sarah.j@university....</p>
+      <div className="relative" ref={menuRef}>
+        <div 
+          className="flex items-center gap-3 p-3 bg-white rounded-xl mb-6 border border-gray-200 shadow-sm cursor-pointer hover:bg-gray-50 transition-colors"
+          onClick={() => setShowProfileMenu(!showProfileMenu)}
+        >
+          <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=random`} alt="Profile" className="w-10 h-10 rounded-full object-cover" />
+          <div className="overflow-hidden">
+            <h3 className="text-sm font-semibold text-gray-900 truncate">{user?.name || 'Loading...'}</h3>
+            <p className="text-xs text-gray-500 truncate">{user?.email || 'Loading...'}</p>
+          </div>
         </div>
+
+        {showProfileMenu && (
+          <div className="absolute top-full left-0 w-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg z-50 overflow-hidden">
+            <div className="p-4 border-b border-gray-100 bg-gray-50">
+              <p className="text-sm font-semibold text-gray-900">{user?.name}</p>
+              <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+            </div>
+            <div className="p-2">
+              <button 
+                onClick={handleLogout}
+                className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+              >
+                <LogOut size={16} />
+                <span>Logout</span>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       <nav className="flex flex-col gap-2 flex-1">

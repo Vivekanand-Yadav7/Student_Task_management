@@ -5,7 +5,7 @@ import { AuthRequest } from '../middleware/authCheck.js';
 
 export const createTask = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
-        const { title, duration_required } = req.body;
+        const { title, duration_required, priority, slotId } = req.body;
         
         // Ensure user is attached from authCheck middleware
         if (!req.user || typeof req.user === 'string') {
@@ -20,12 +20,22 @@ export const createTask = async (req: AuthRequest, res: Response): Promise<void>
             return;
         }
 
+        const taskData: any = {
+            title,
+            duration_required,
+            userId
+        };
+
+        if (priority) {
+            taskData.priority = priority;
+        }
+
+        if (slotId) {
+            taskData.slotId = slotId;
+        }
+
         const task = await prisma.task.create({
-            data: {
-                title,
-                duration_required,
-                userId
-            }
+            data: taskData
         });
 
         res.status(201).json({

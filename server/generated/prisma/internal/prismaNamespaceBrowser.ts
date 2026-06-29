@@ -52,7 +52,11 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Task: 'Task'
+  Task: 'Task',
+  Subtitle: 'Subtitle',
+  Slot: 'Slot',
+  ActiveSlot: 'ActiveSlot',
+  RevisionTask: 'RevisionTask'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -86,16 +90,67 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const TaskScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  subtitle: 'subtitle',
   duration_required: 'duration_required',
   is_complete: 'is_complete',
-  completed_subtitle_count: 'completed_subtitle_count',
+  priority: 'priority',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  slotId: 'slotId'
+} as const
+
+export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
+
+
+export const SubtitleScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  is_complete: 'is_complete',
+  taskId: 'taskId'
+} as const
+
+export type SubtitleScalarFieldEnum = (typeof SubtitleScalarFieldEnum)[keyof typeof SubtitleScalarFieldEnum]
+
+
+export const SlotScalarFieldEnum = {
+  id: 'id',
+  slot_type: 'slot_type',
+  start_time: 'start_time',
+  end_time: 'end_time',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId'
 } as const
 
-export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
+export type SlotScalarFieldEnum = (typeof SlotScalarFieldEnum)[keyof typeof SlotScalarFieldEnum]
+
+
+export const ActiveSlotScalarFieldEnum = {
+  id: 'id',
+  start_time: 'start_time',
+  end_time: 'end_time',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type ActiveSlotScalarFieldEnum = (typeof ActiveSlotScalarFieldEnum)[keyof typeof ActiveSlotScalarFieldEnum]
+
+
+export const RevisionTaskScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  duration_required: 'duration_required',
+  is_complete: 'is_complete',
+  priority: 'priority',
+  date: 'date',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  originalTaskId: 'originalTaskId',
+  userId: 'userId'
+} as const
+
+export type RevisionTaskScalarFieldEnum = (typeof RevisionTaskScalarFieldEnum)[keyof typeof RevisionTaskScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -112,4 +167,12 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

@@ -14,7 +14,16 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  tasks     Task[]
+  tasks      Task[]
+  slots      Slot[]
+  activeSlot ActiveSlot?
+  revisionTasks RevisionTask[]
+}
+
+enum Priority {
+  HIGH
+  MEDIUM
+  LEAST
 }
 
 model Task {
@@ -23,11 +32,17 @@ model Task {
   subtitles         Subtitle[]
   duration_required Int        // duration in seconds
   is_complete       Boolean    @default(false)
+  priority          Priority   @default(MEDIUM)
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
 
   user   User   @relation(fields: [userId], references: [id])
   userId String
+
+  slot   Slot?  @relation(fields: [slotId], references: [id])
+  slotId String?
+
+  revisionTasks RevisionTask[]
 }
 
 model Subtitle {
@@ -37,4 +52,55 @@ model Subtitle {
   
   task        Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
   taskId      String
+}
+
+enum SlotType {
+  revision
+  new_task
+  backlog
+  extra_curicullar
+}
+
+model Slot {
+  id         String   @id @default(uuid())
+  slot_type  SlotType
+  start_time String
+  end_time   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+
+  tasks      Task[]
+}
+
+model ActiveSlot {
+  id         String   @id @default(uuid())
+  start_time String
+  end_time   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String   @unique
+}
+
+model RevisionTask {
+  id                String   @id @default(uuid())
+  title             String
+  duration_required Int                        // duration in seconds
+  is_complete       Boolean  @default(false)
+  priority          Priority @default(MEDIUM)
+  // The date this revision is scheduled / the date of the original task completion
+  date              DateTime @default(now())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Optional back-reference to the original Task it was derived from
+  originalTask   Task?   @relation(fields: [originalTaskId], references: [id], onDelete: SetNull)
+  originalTaskId String?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
 }
