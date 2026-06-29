@@ -28,10 +28,12 @@ export type AggregateRevisionTask = {
 
 export type RevisionTaskAvgAggregateOutputType = {
   duration_required: number | null
+  revision_frequency: number | null
 }
 
 export type RevisionTaskSumAggregateOutputType = {
   duration_required: number | null
+  revision_frequency: number | null
 }
 
 export type RevisionTaskMinAggregateOutputType = {
@@ -43,6 +45,7 @@ export type RevisionTaskMinAggregateOutputType = {
   date: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  revision_frequency: number | null
   originalTaskId: string | null
   userId: string | null
 }
@@ -56,6 +59,7 @@ export type RevisionTaskMaxAggregateOutputType = {
   date: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  revision_frequency: number | null
   originalTaskId: string | null
   userId: string | null
 }
@@ -69,6 +73,7 @@ export type RevisionTaskCountAggregateOutputType = {
   date: number
   createdAt: number
   updatedAt: number
+  revision_frequency: number
   originalTaskId: number
   userId: number
   _all: number
@@ -77,10 +82,12 @@ export type RevisionTaskCountAggregateOutputType = {
 
 export type RevisionTaskAvgAggregateInputType = {
   duration_required?: true
+  revision_frequency?: true
 }
 
 export type RevisionTaskSumAggregateInputType = {
   duration_required?: true
+  revision_frequency?: true
 }
 
 export type RevisionTaskMinAggregateInputType = {
@@ -92,6 +99,7 @@ export type RevisionTaskMinAggregateInputType = {
   date?: true
   createdAt?: true
   updatedAt?: true
+  revision_frequency?: true
   originalTaskId?: true
   userId?: true
 }
@@ -105,6 +113,7 @@ export type RevisionTaskMaxAggregateInputType = {
   date?: true
   createdAt?: true
   updatedAt?: true
+  revision_frequency?: true
   originalTaskId?: true
   userId?: true
 }
@@ -118,6 +127,7 @@ export type RevisionTaskCountAggregateInputType = {
   date?: true
   createdAt?: true
   updatedAt?: true
+  revision_frequency?: true
   originalTaskId?: true
   userId?: true
   _all?: true
@@ -218,6 +228,7 @@ export type RevisionTaskGroupByOutputType = {
   date: Date
   createdAt: Date
   updatedAt: Date
+  revision_frequency: number
   originalTaskId: string | null
   userId: string
   _count: RevisionTaskCountAggregateOutputType | null
@@ -254,6 +265,7 @@ export type RevisionTaskWhereInput = {
   date?: Prisma.DateTimeFilter<"RevisionTask"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"RevisionTask"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RevisionTask"> | Date | string
+  revision_frequency?: Prisma.IntFilter<"RevisionTask"> | number
   originalTaskId?: Prisma.StringNullableFilter<"RevisionTask"> | string | null
   userId?: Prisma.StringFilter<"RevisionTask"> | string
   originalTask?: Prisma.XOR<Prisma.TaskNullableScalarRelationFilter, Prisma.TaskWhereInput> | null
@@ -269,6 +281,7 @@ export type RevisionTaskOrderByWithRelationInput = {
   date?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  revision_frequency?: Prisma.SortOrder
   originalTaskId?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   originalTask?: Prisma.TaskOrderByWithRelationInput
@@ -287,6 +300,7 @@ export type RevisionTaskWhereUniqueInput = Prisma.AtLeast<{
   date?: Prisma.DateTimeFilter<"RevisionTask"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"RevisionTask"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RevisionTask"> | Date | string
+  revision_frequency?: Prisma.IntFilter<"RevisionTask"> | number
   originalTaskId?: Prisma.StringNullableFilter<"RevisionTask"> | string | null
   userId?: Prisma.StringFilter<"RevisionTask"> | string
   originalTask?: Prisma.XOR<Prisma.TaskNullableScalarRelationFilter, Prisma.TaskWhereInput> | null
@@ -302,6 +316,7 @@ export type RevisionTaskOrderByWithAggregationInput = {
   date?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  revision_frequency?: Prisma.SortOrder
   originalTaskId?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   _count?: Prisma.RevisionTaskCountOrderByAggregateInput
@@ -323,6 +338,7 @@ export type RevisionTaskScalarWhereWithAggregatesInput = {
   date?: Prisma.DateTimeWithAggregatesFilter<"RevisionTask"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"RevisionTask"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"RevisionTask"> | Date | string
+  revision_frequency?: Prisma.IntWithAggregatesFilter<"RevisionTask"> | number
   originalTaskId?: Prisma.StringNullableWithAggregatesFilter<"RevisionTask"> | string | null
   userId?: Prisma.StringWithAggregatesFilter<"RevisionTask"> | string
 }
@@ -336,6 +352,7 @@ export type RevisionTaskCreateInput = {
   date?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  revision_frequency?: number
   originalTask?: Prisma.TaskCreateNestedOneWithoutRevisionTasksInput
   user: Prisma.UserCreateNestedOneWithoutRevisionTasksInput
 }
@@ -349,6 +366,7 @@ export type RevisionTaskUncheckedCreateInput = {
   date?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  revision_frequency?: number
   originalTaskId?: string | null
   userId: string
 }
@@ -362,6 +380,7 @@ export type RevisionTaskUpdateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revision_frequency?: Prisma.IntFieldUpdateOperationsInput | number
   originalTask?: Prisma.TaskUpdateOneWithoutRevisionTasksNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutRevisionTasksNestedInput
 }
@@ -375,6 +394,7 @@ export type RevisionTaskUncheckedUpdateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revision_frequency?: Prisma.IntFieldUpdateOperationsInput | number
   originalTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -388,6 +408,7 @@ export type RevisionTaskCreateManyInput = {
   date?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  revision_frequency?: number
   originalTaskId?: string | null
   userId: string
 }
@@ -401,6 +422,7 @@ export type RevisionTaskUpdateManyMutationInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revision_frequency?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type RevisionTaskUncheckedUpdateManyInput = {
@@ -412,6 +434,7 @@ export type RevisionTaskUncheckedUpdateManyInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revision_frequency?: Prisma.IntFieldUpdateOperationsInput | number
   originalTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -435,12 +458,14 @@ export type RevisionTaskCountOrderByAggregateInput = {
   date?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  revision_frequency?: Prisma.SortOrder
   originalTaskId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
 export type RevisionTaskAvgOrderByAggregateInput = {
   duration_required?: Prisma.SortOrder
+  revision_frequency?: Prisma.SortOrder
 }
 
 export type RevisionTaskMaxOrderByAggregateInput = {
@@ -452,6 +477,7 @@ export type RevisionTaskMaxOrderByAggregateInput = {
   date?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  revision_frequency?: Prisma.SortOrder
   originalTaskId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
@@ -465,12 +491,14 @@ export type RevisionTaskMinOrderByAggregateInput = {
   date?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  revision_frequency?: Prisma.SortOrder
   originalTaskId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
 export type RevisionTaskSumOrderByAggregateInput = {
   duration_required?: Prisma.SortOrder
+  revision_frequency?: Prisma.SortOrder
 }
 
 export type RevisionTaskCreateNestedManyWithoutUserInput = {
@@ -566,6 +594,7 @@ export type RevisionTaskCreateWithoutUserInput = {
   date?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  revision_frequency?: number
   originalTask?: Prisma.TaskCreateNestedOneWithoutRevisionTasksInput
 }
 
@@ -578,6 +607,7 @@ export type RevisionTaskUncheckedCreateWithoutUserInput = {
   date?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  revision_frequency?: number
   originalTaskId?: string | null
 }
 
@@ -619,6 +649,7 @@ export type RevisionTaskScalarWhereInput = {
   date?: Prisma.DateTimeFilter<"RevisionTask"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"RevisionTask"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RevisionTask"> | Date | string
+  revision_frequency?: Prisma.IntFilter<"RevisionTask"> | number
   originalTaskId?: Prisma.StringNullableFilter<"RevisionTask"> | string | null
   userId?: Prisma.StringFilter<"RevisionTask"> | string
 }
@@ -632,6 +663,7 @@ export type RevisionTaskCreateWithoutOriginalTaskInput = {
   date?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  revision_frequency?: number
   user: Prisma.UserCreateNestedOneWithoutRevisionTasksInput
 }
 
@@ -644,6 +676,7 @@ export type RevisionTaskUncheckedCreateWithoutOriginalTaskInput = {
   date?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  revision_frequency?: number
   userId: string
 }
 
@@ -682,6 +715,7 @@ export type RevisionTaskCreateManyUserInput = {
   date?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  revision_frequency?: number
   originalTaskId?: string | null
 }
 
@@ -694,6 +728,7 @@ export type RevisionTaskUpdateWithoutUserInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revision_frequency?: Prisma.IntFieldUpdateOperationsInput | number
   originalTask?: Prisma.TaskUpdateOneWithoutRevisionTasksNestedInput
 }
 
@@ -706,6 +741,7 @@ export type RevisionTaskUncheckedUpdateWithoutUserInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revision_frequency?: Prisma.IntFieldUpdateOperationsInput | number
   originalTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -718,6 +754,7 @@ export type RevisionTaskUncheckedUpdateManyWithoutUserInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revision_frequency?: Prisma.IntFieldUpdateOperationsInput | number
   originalTaskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -730,6 +767,7 @@ export type RevisionTaskCreateManyOriginalTaskInput = {
   date?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  revision_frequency?: number
   userId: string
 }
 
@@ -742,6 +780,7 @@ export type RevisionTaskUpdateWithoutOriginalTaskInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revision_frequency?: Prisma.IntFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutRevisionTasksNestedInput
 }
 
@@ -754,6 +793,7 @@ export type RevisionTaskUncheckedUpdateWithoutOriginalTaskInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revision_frequency?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -766,6 +806,7 @@ export type RevisionTaskUncheckedUpdateManyWithoutOriginalTaskInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revision_frequency?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -780,6 +821,7 @@ export type RevisionTaskSelect<ExtArgs extends runtime.Types.Extensions.Internal
   date?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  revision_frequency?: boolean
   originalTaskId?: boolean
   userId?: boolean
   originalTask?: boolean | Prisma.RevisionTask$originalTaskArgs<ExtArgs>
@@ -795,6 +837,7 @@ export type RevisionTaskSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   date?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  revision_frequency?: boolean
   originalTaskId?: boolean
   userId?: boolean
   originalTask?: boolean | Prisma.RevisionTask$originalTaskArgs<ExtArgs>
@@ -810,6 +853,7 @@ export type RevisionTaskSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   date?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  revision_frequency?: boolean
   originalTaskId?: boolean
   userId?: boolean
   originalTask?: boolean | Prisma.RevisionTask$originalTaskArgs<ExtArgs>
@@ -825,11 +869,12 @@ export type RevisionTaskSelectScalar = {
   date?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  revision_frequency?: boolean
   originalTaskId?: boolean
   userId?: boolean
 }
 
-export type RevisionTaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "duration_required" | "is_complete" | "priority" | "date" | "createdAt" | "updatedAt" | "originalTaskId" | "userId", ExtArgs["result"]["revisionTask"]>
+export type RevisionTaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "duration_required" | "is_complete" | "priority" | "date" | "createdAt" | "updatedAt" | "revision_frequency" | "originalTaskId" | "userId", ExtArgs["result"]["revisionTask"]>
 export type RevisionTaskInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   originalTask?: boolean | Prisma.RevisionTask$originalTaskArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -858,6 +903,7 @@ export type $RevisionTaskPayload<ExtArgs extends runtime.Types.Extensions.Intern
     date: Date
     createdAt: Date
     updatedAt: Date
+    revision_frequency: number
     originalTaskId: string | null
     userId: string
   }, ExtArgs["result"]["revisionTask"]>
@@ -1293,6 +1339,7 @@ export interface RevisionTaskFieldRefs {
   readonly date: Prisma.FieldRef<"RevisionTask", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"RevisionTask", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"RevisionTask", 'DateTime'>
+  readonly revision_frequency: Prisma.FieldRef<"RevisionTask", 'Int'>
   readonly originalTaskId: Prisma.FieldRef<"RevisionTask", 'String'>
   readonly userId: Prisma.FieldRef<"RevisionTask", 'String'>
 }

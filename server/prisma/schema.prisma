@@ -96,6 +96,7 @@ model RevisionTask {
   date              DateTime @default(now())
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
+  revision_frequency Int      @default(0)
 
   // Optional back-reference to the original Task it was derived from
   originalTask   Task?   @relation(fields: [originalTaskId], references: [id], onDelete: SetNull)

@@ -1,0 +1,1 @@
+{"version":3,"file":"allTask.js","sourceRoot":"","sources":["../../../src/controllers/allTask.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,QAAQ,EAAE,MAAM,wBAAwB,CAAC;AAGlD,MAAM,iBAAiB,GAAG,KAAK,EAAE,GAAY,EAAE,GAAa,EAAiB,EAAE;IAC3E,MAAM,QAAQ,CAAC,GAAkB,EAAE,GAAG,CAAC,CAAC;AAC5C,CAAC,CAAC;AAEF,eAAe,iBAAiB,CAAC"}

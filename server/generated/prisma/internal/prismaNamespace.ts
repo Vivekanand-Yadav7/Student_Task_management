@@ -963,6 +963,7 @@ export const RevisionTaskScalarFieldEnum = {
   date: 'date',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  revision_frequency: 'revision_frequency',
   originalTaskId: 'originalTaskId',
   userId: 'userId'
 } as const

@@ -74,13 +74,35 @@ export const completeRevisionTask = async (req: Request, res: Response) => {
         const userId = getUserId(req);
         if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
-        const { id } = req.params;
+        const id = req.params.id as string;
         const existing = await prisma.revisionTask.findFirst({ where: { id, userId } });
         if (!existing) return res.status(404).json({ error: 'Revision task not found' });
 
+        // Check if there is an active revision slot
+        const activeSlot = await prisma.activeSlot.findUnique({ where: { userId } });
+        if (!activeSlot) {
+            return res.status(400).json({ error: 'No active slot found. You can only revise tasks during a revision slot.' });
+        }
+
+        const slot = await prisma.slot.findFirst({
+            where: {
+                userId,
+                start_time: activeSlot.start_time,
+                end_time: activeSlot.end_time,
+                slot_type: 'revision'
+            }
+        });
+
+        if (!slot) {
+            return res.status(400).json({ error: 'Current active slot is not a revision slot.' });
+        }
+
         const task = await prisma.revisionTask.update({
             where: { id },
-            data: { is_complete: true }
+            data: { 
+                is_complete: true,
+                revision_frequency: { increment: 1 }
+            }
         });
         return res.status(200).json(task);
     } catch (err) {
@@ -96,7 +118,7 @@ export const deleteRevisionTask = async (req: Request, res: Response) => {
         const userId = getUserId(req);
         if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
-        const { id } = req.params;
+        const id = req.params.id as string;
         const existing = await prisma.revisionTask.findFirst({ where: { id, userId } });
         if (!existing) return res.status(404).json({ error: 'Revision task not found' });
 

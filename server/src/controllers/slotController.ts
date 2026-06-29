@@ -50,7 +50,7 @@ export const getSlots = async (req: Request, res: Response) => {
 
 export const updateSlot = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
+        const id = req.params.id as string;
         const { slot_type, start_time, end_time } = req.body;
         // @ts-ignore
         const userId = req.user?.id;
@@ -85,7 +85,7 @@ export const updateSlot = async (req: Request, res: Response) => {
 
 export const deleteSlot = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
+        const id = req.params.id as string;
         // @ts-ignore
         const userId = req.user?.id;
 

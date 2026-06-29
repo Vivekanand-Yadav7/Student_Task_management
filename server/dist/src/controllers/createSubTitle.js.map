@@ -1,0 +1,1 @@
+{"version":3,"file":"createSubTitle.js","sourceRoot":"","sources":["../../../src/controllers/createSubTitle.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,cAAc,EAAE,MAAM,+BAA+B,CAAC;AAE/D,MAAM,wBAAwB,GAAG,KAAK,EAAE,GAAY,EAAE,GAAa,EAAiB,EAAE;IAClF,MAAM,cAAc,CAAC,GAAG,EAAE,GAAG,CAAC,CAAC;AACnC,CAAC,CAAC;AAEF,eAAe,wBAAwB,CAAC"}

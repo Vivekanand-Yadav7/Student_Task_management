@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 
 export const allTasks = async (req: Request, res: Response): Promise<void> => {
     try {
-        const id = req.user.id;
+        const id = (req as any).user?.id;
 
         if (!id) {
             res.status(400).json({ error: "User ID is required" });
