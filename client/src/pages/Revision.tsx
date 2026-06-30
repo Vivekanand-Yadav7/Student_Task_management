@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import {
   RefreshCcw,
-  Plus,
   Settings,
   CheckCircle2,
   Trash2,
