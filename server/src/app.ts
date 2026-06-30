@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === 'production') {
     const clientBuild = path.join(__dirname, '../../client/dist');
     app.use(express.static(clientBuild));
     // SPA fallback — must be AFTER /api routes are registered
-    app.get('*', (_req, res) => {
+    app.get('/{*splat}', (_req, res) => {
         res.sendFile(path.join(clientBuild, 'index.html'));
     });
 }
