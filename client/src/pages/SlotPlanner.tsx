@@ -1,3 +1,4 @@
+import { apiUrl, authHeaders } from '../lib/api';
 import React, { useState, useEffect, useRef } from 'react';
 import { Plus, ChevronLeft, ChevronRight, X, GripHorizontal, Trash2 } from 'lucide-react';
 
@@ -169,7 +170,7 @@ export default function SlotPlanner() {
 
   const fetchActiveSlot = async () => {
     try {
-      const res = await fetch('/api/slots/active', {
+      const res = await fetch(apiUrl('/api/slots/active'), {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -186,7 +187,7 @@ export default function SlotPlanner() {
 
   const fetchSlots = async () => {
     try {
-      const res = await fetch('/api/slots', {
+      const res = await fetch(apiUrl('/api/slots'), {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -231,7 +232,7 @@ export default function SlotPlanner() {
     }
 
     try {
-      const res = await fetch('/api/slots', {
+      const res = await fetch(apiUrl('/api/slots'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -258,7 +259,7 @@ export default function SlotPlanner() {
     }
 
     try {
-      const res = await fetch('/api/slots/active', {
+      const res = await fetch(apiUrl('/api/slots/active'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -278,7 +279,7 @@ export default function SlotPlanner() {
   const handleDeleteSlot = async (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     try {
-      const res = await fetch(`/api/slots/${id}`, {
+      const res = await fetch(apiUrl(`/api/slots/${id}`), {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -367,7 +368,7 @@ export default function SlotPlanner() {
         const updatedSlot = slotsRef.current.find(s => s.id === dragState.id);
         if (updatedSlot) {
           try {
-            await fetch(`/api/slots/${updatedSlot.id}`, {
+            await fetch(apiUrl(`/api/slots/${updatedSlot.id}`), {
               method: 'PUT',
               headers: {
                 'Content-Type': 'application/json',

@@ -1,3 +1,4 @@
+import { apiUrl, authHeaders } from '../lib/api';
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
@@ -10,7 +11,7 @@ export default function Login() {
 
   const handleGoogleSuccess = async (credentialResponse: any) => {
     try {
-      const response = await fetch('/api/user/google-auth', {
+      const response = await fetch(apiUrl('/api/user/google-auth'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ idToken: credentialResponse.credential }),
@@ -35,7 +36,7 @@ export default function Login() {
     setError('');
     
     try {
-      const response = await fetch('/api/user/login', {
+      const response = await fetch(apiUrl('/api/user/login'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

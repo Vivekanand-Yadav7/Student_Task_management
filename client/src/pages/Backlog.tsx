@@ -1,4 +1,6 @@
+import { apiUrl, authHeaders } from '../lib/api';
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import {
   Bell,
   Plus,
@@ -30,7 +32,7 @@ export default function Backlog() {
     }
     
     try {
-      const response = await fetch('/api/tasks/all', {
+      const response = await fetch(apiUrl('/api/tasks/all'), {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (response.ok) {
@@ -49,7 +51,7 @@ export default function Backlog() {
   const handleMarkTaskDone = async (id: string) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`/api/tasks/done?id=${id}`, {
+      const response = await fetch(apiUrl(`/api/tasks/done?id=${id}`), {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -57,7 +59,7 @@ export default function Backlog() {
         fetchTasks();
       } else {
         const data = await response.json();
-        alert(data.error || 'Failed to mark task done');
+        toast.error(data.error || 'Failed to mark task done');
       }
     } catch (error) {
       console.error('Failed to mark task done', error);

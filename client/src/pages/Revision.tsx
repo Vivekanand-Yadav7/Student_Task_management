@@ -1,4 +1,6 @@
+import { apiUrl, authHeaders } from '../lib/api';
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import {
   RefreshCcw,
   Plus,
@@ -64,7 +66,7 @@ export default function Revision() {
     
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch('/api/revision-tasks', {
+      const response = await fetch(apiUrl('/api/revision-tasks'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -78,6 +80,9 @@ export default function Revision() {
       if (response.ok) {
         setNewTitle('');
         fetchRevisionTasks();
+      } else {
+        const data = await response.json();
+        toast.error(data.error || 'Failed to create revision task');
       }
     } catch (error) {
       console.error('Failed to create revision task', error);
@@ -87,7 +92,7 @@ export default function Revision() {
   const handleComplete = async (id: string) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`/api/revision-tasks/${id}/complete`, {
+      const response = await fetch(apiUrl(`/api/revision-tasks/${id}/complete`), {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -98,7 +103,7 @@ export default function Revision() {
         fetchRevisionTasks();
       } else {
         const data = await response.json();
-        alert(data.error || 'Failed to complete revision task');
+        toast.error(data.error || 'Failed to complete revision task');
       }
     } catch (error) {
       console.error('Failed to complete revision task', error);
@@ -108,7 +113,7 @@ export default function Revision() {
   const handleDelete = async (id: string) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`/api/revision-tasks/${id}`, {
+      const response = await fetch(apiUrl(`/api/revision-tasks/${id}`), {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

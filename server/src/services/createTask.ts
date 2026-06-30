@@ -20,6 +20,26 @@ export const createTask = async (req: AuthRequest, res: Response): Promise<void>
             return;
         }
 
+        const activeSlot = await prisma.activeSlot.findUnique({ where: { userId } });
+        if (!activeSlot) {
+            res.status(400).json({ error: 'No active slot found. You can only create tasks during a new_task slot.' });
+            return;
+        }
+        
+        const slot = await prisma.slot.findFirst({
+            where: {
+                userId,
+                start_time: activeSlot.start_time,
+                end_time: activeSlot.end_time,
+                slot_type: 'new_task'
+            }
+        });
+        
+        if (!slot) {
+            res.status(400).json({ error: 'Current active slot is not a new_task slot.' });
+            return;
+        }
+
         const taskData: any = {
             title,
             duration_required,

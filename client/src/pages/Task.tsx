@@ -1,4 +1,6 @@
+import { apiUrl, authHeaders } from '../lib/api';
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import {
   Bell,
   Plus,
@@ -41,7 +43,7 @@ export default function Task() {
     }
     
     try {
-      const response = await fetch('/api/tasks/all', {
+      const response = await fetch(apiUrl('/api/tasks/all'), {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -63,7 +65,7 @@ export default function Task() {
     const token = localStorage.getItem('token');
     if (!token) return;
     try {
-      const response = await fetch('/api/slots', {
+      const response = await fetch(apiUrl('/api/slots'), {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (response.ok) {
@@ -91,7 +93,7 @@ export default function Task() {
 
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch('/api/tasks/create', {
+      const response = await fetch(apiUrl('/api/tasks/create'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -109,6 +111,9 @@ export default function Task() {
         setNewTaskDurationHHMM('');
         setNewTaskSlotId('');
         await fetchTasks();
+      } else {
+        const data = await response.json();
+        toast.error(data.error || 'Failed to create task');
       }
     } catch (error) {
       console.error('Failed to create task', error);
@@ -120,7 +125,7 @@ export default function Task() {
   const handleMarkTaskDone = async (id: string) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`/api/tasks/done?id=${id}`, {
+      const response = await fetch(apiUrl(`/api/tasks/done?id=${id}`), {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -128,6 +133,9 @@ export default function Task() {
       });
       if (response.ok) {
         fetchTasks();
+      } else {
+        const data = await response.json();
+        toast.error(data.error || 'Failed to mark task done');
       }
     } catch (error) {
       console.error('Failed to mark task done', error);
@@ -140,7 +148,7 @@ export default function Task() {
 
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch('/api/tasks/subtitle/create', {
+      const response = await fetch(apiUrl('/api/tasks/subtitle/create'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -163,7 +171,7 @@ export default function Task() {
   const handleMarkSubtitleDone = async (taskId: string, subId: string) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch('/api/tasks/subtitlecomplete', {
+      const response = await fetch(apiUrl('/api/tasks/subtitlecomplete'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -176,6 +184,9 @@ export default function Task() {
       });
       if (response.ok) {
         fetchTasks();
+      } else {
+        const data = await response.json();
+        toast.error(data.error || 'Failed to mark subtitle done');
       }
     } catch (error) {
       console.error('Failed to mark subtitle done', error);

@@ -1,3 +1,4 @@
+import { apiUrl, authHeaders } from '../lib/api';
 import React, { useState, useEffect } from 'react';
 import {
   Bell,
@@ -43,12 +44,12 @@ export default function Dashboard() {
     const token = localStorage.getItem('token');
     if (!token) return;
 
-    fetch('/api/slots', { headers: { 'Authorization': `Bearer ${token}` } })
+    fetch(apiUrl('/api/slots'), { headers: { 'Authorization': `Bearer ${token}` } })
       .then(r => r.ok ? r.json() : [])
       .then(data => setSlots(Array.isArray(data) ? data : []))
       .catch(() => {});
 
-    fetch('/api/tasks/all', { headers: { 'Authorization': `Bearer ${token}` } })
+    fetch(apiUrl('/api/tasks/all'), { headers: { 'Authorization': `Bearer ${token}` } })
       .then(r => r.ok ? r.json() : [])
       .then(data => setTasks(Array.isArray(data) ? data : []))
       .catch(() => {});
