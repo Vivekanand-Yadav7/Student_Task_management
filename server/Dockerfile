@@ -35,4 +35,4 @@ COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
 EXPOSE 5000
 
 # Run Prisma migrations then start the server
-CMD ["sh", "-c", "npx prisma db push && node dist/index.js"]
+CMD ["sh", "-c", "npx prisma db push && node dist/src/index.js"]
