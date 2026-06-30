@@ -27,12 +27,13 @@ COPY package*.json ./
 RUN npm ci --omit=dev
 
 # Copy compiled output + required runtime files
-COPY --from=builder /app/dist        ./dist
-COPY --from=builder /app/generated   ./generated
-COPY --from=builder /app/prisma      ./prisma
+# generated/prisma is inside src/ so tsc compiles it into dist/src/generated/
+COPY --from=builder /app/dist           ./dist
+COPY --from=builder /app/prisma         ./prisma
 COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
 
 EXPOSE 5000
 
 # Run Prisma migrations then start the server
-CMD ["sh", "-c", "npx prisma db push && node dist/src/index.js"]
+# tsx is needed because Prisma v7 generated client uses extensionless ESM imports
+CMD ["sh", "-c", "npx prisma db push && npx tsx dist/src/index.js"]
