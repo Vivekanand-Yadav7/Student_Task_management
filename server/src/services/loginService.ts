@@ -20,7 +20,7 @@ export const loginUser = async (
             where: { email }
         });
 
-        if (!user) {
+        if (!user || !user.password) {
             return res.status(401).json({
                 error: 'Invalid credentials'
             });

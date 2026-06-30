@@ -458,9 +458,6 @@ export type BoolFieldUpdateOperationsInput = {
 export type EnumPriorityFieldUpdateOperationsInput = {
     set?: $Enums.Priority;
 };
-export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null;
-};
 export type TaskCreateNestedOneWithoutSubtitlesInput = {
     create?: Prisma.XOR<Prisma.TaskCreateWithoutSubtitlesInput, Prisma.TaskUncheckedCreateWithoutSubtitlesInput>;
     connectOrCreate?: Prisma.TaskCreateOrConnectWithoutSubtitlesInput;

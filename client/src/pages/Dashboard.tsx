@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Home,
-  CheckSquare,
-  LayoutGrid,
-  Inbox,
-  RefreshCcw,
-  CalendarDays,
-  BarChart2,
-  User,
   Bell,
   Plus,
   Calendar,
@@ -18,12 +10,12 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  ResponsiveContainer
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
+  Legend
 } from 'recharts';
 
 const productivityData = [
@@ -45,14 +37,33 @@ const slotTypeStyles: Record<string, { border: string; badge: string; badgeText:
 
 export default function Dashboard() {
   const [slots, setSlots] = useState<any[]>([]);
+  const [tasks, setTasks] = useState<any[]>([]);
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) return;
+
     fetch('/api/slots', { headers: { 'Authorization': `Bearer ${token}` } })
       .then(r => r.ok ? r.json() : [])
       .then(data => setSlots(Array.isArray(data) ? data : []))
       .catch(() => {});
+
+    fetch('/api/tasks/all', { headers: { 'Authorization': `Bearer ${token}` } })
+      .then(r => r.ok ? r.json() : [])
+      .then(data => setTasks(Array.isArray(data) ? data : []))
+      .catch(() => {});
   }, []);
+
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter(t => t.is_complete).length;
+  const pendingTasks = totalTasks - completedTasks;
+  const progressPct = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
+
+  const pieData = [
+    { name: 'Completed', value: completedTasks },
+    { name: 'Pending',   value: pendingTasks   },
+  ];
+  const PIE_COLORS = ['#10b981', '#f59e0b'];
 
   return (
     <>
@@ -82,32 +93,65 @@ export default function Dashboard() {
               <span className="text-sm text-gray-500 font-medium">Total Tasks</span>
               <Calendar size={20} className="text-blue-500" />
             </div>
-            <div className="text-3xl font-bold text-gray-900">12</div>
+            <div className="text-3xl font-bold text-gray-900">{totalTasks}</div>
           </div>
           <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col gap-3">
             <div className="flex justify-between items-center">
               <span className="text-sm text-gray-500 font-medium">Completed</span>
               <CheckCircle2 size={20} className="text-emerald-500" />
             </div>
-            <div className="text-3xl font-bold text-emerald-500">8</div>
+            <div className="text-3xl font-bold text-emerald-500">{completedTasks}</div>
           </div>
           <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col gap-3">
             <div className="flex justify-between items-center">
               <span className="text-sm text-gray-500 font-medium">Pending</span>
               <Clock size={20} className="text-amber-500" />
             </div>
-            <div className="text-3xl font-bold text-amber-500">4</div>
+            <div className="text-3xl font-bold text-amber-500">{pendingTasks}</div>
           </div>
           <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col gap-3">
             <div className="flex justify-between items-center">
               <span className="text-sm text-gray-500 font-medium">Progress</span>
             </div>
             <div className="flex justify-center items-center h-12">
-              <div className="w-[50px] h-[50px] rounded-full flex justify-center items-center" style={{ background: 'conic-gradient(#3b82f6 67%, #e5e7eb 0)' }}>
-                <span className="w-10 h-10 bg-white rounded-full flex justify-center items-center text-sm font-bold">67%</span>
+              <div
+                className="w-[50px] h-[50px] rounded-full flex justify-center items-center"
+                style={{ background: `conic-gradient(#3b82f6 ${progressPct}%, #e5e7eb 0)` }}
+              >
+                <span className="w-10 h-10 bg-white rounded-full flex justify-center items-center text-sm font-bold">{progressPct}%</span>
               </div>
             </div>
           </div>
+        </section>
+
+        {/* Pie Chart */}
+        <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm mb-8">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Task Breakdown</h2>
+          {totalTasks === 0 ? (
+            <p className="text-sm text-gray-400 text-center py-6">No tasks yet. <Link to="/daily-tasks" className="text-blue-500 hover:underline">Create one →</Link></p>
+          ) : (
+            <ResponsiveContainer width="100%" height={220}>
+              <PieChart>
+                <Pie
+                  data={pieData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={55}
+                  outerRadius={85}
+                  paddingAngle={3}
+                  dataKey="value"
+                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  labelLine={false}
+                >
+                  {pieData.map((_, i) => (
+                    <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip formatter={(val: number) => [`${val} task${val !== 1 ? 's' : ''}`, '']} />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          )}
         </section>
 
         <section className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
@@ -171,18 +215,26 @@ export default function Dashboard() {
 
         <section className="mb-8 bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-sm font-semibold text-gray-900">7-Day Productivity</h3>
-            <span className="text-xs text-blue-500 font-medium">74% avg</span>
+            <h3 className="text-sm font-semibold text-gray-900">Task Summary</h3>
+            <span className="text-xs text-blue-500 font-medium">{progressPct}% done</span>
           </div>
-          <div className="mt-2">
-            <ResponsiveContainer width="100%" height={150}>
-              <LineChart data={productivityData} margin={{ top: 5, right: 0, left: -25, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fontSize: 10, fill: '#9ca3af'}} dy={10} />
-                <YAxis axisLine={false} tickLine={false} tick={{fontSize: 10, fill: '#9ca3af'}} dx={-10} ticks={[0, 25, 50, 75, 100]} />
-                <Line type="monotone" dataKey="value" stroke="#3b82f6" strokeWidth={2} dot={{r: 4, fill: '#3b82f6'}} activeDot={{r: 6}} />
-              </LineChart>
-            </ResponsiveContainer>
+          <div className="flex flex-col gap-3 mt-2">
+            <div>
+              <div className="flex justify-between text-xs text-gray-500 mb-1">
+                <span>Completed</span><span>{completedTasks}/{totalTasks}</span>
+              </div>
+              <div className="w-full bg-gray-100 rounded-full h-2">
+                <div className="bg-emerald-500 h-2 rounded-full transition-all" style={{ width: `${progressPct}%` }} />
+              </div>
+            </div>
+            <div>
+              <div className="flex justify-between text-xs text-gray-500 mb-1">
+                <span>Pending</span><span>{pendingTasks}/{totalTasks}</span>
+              </div>
+              <div className="w-full bg-gray-100 rounded-full h-2">
+                <div className="bg-amber-400 h-2 rounded-full transition-all" style={{ width: totalTasks ? `${Math.round((pendingTasks/totalTasks)*100)}%` : '0%' }} />
+              </div>
+            </div>
           </div>
         </section>
 

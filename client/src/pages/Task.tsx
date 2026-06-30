@@ -182,8 +182,14 @@ export default function Task() {
     }
   };
 
-  const activeTasks = tasks.filter(t => !t.is_complete);
-  const completedTasks = tasks.filter(t => t.is_complete);
+  const isToday = (dateString: string) => {
+    const date = new Date(dateString);
+    const today = new Date();
+    return date.toDateString() === today.toDateString();
+  };
+
+  const activeTasks = tasks.filter(t => !t.is_complete && isToday(t.createdAt));
+  const completedTasks = tasks.filter(t => t.is_complete && isToday(t.createdAt));
 
   // Themes for categories (to match hardcoded styling)
   const catThemes = [
