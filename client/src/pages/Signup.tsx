@@ -1,4 +1,4 @@
-import { apiUrl, authHeaders } from '../lib/api';
+import { apiUrl } from '../lib/api';
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';

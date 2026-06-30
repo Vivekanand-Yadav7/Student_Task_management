@@ -1,6 +1,6 @@
-import { apiUrl, authHeaders } from '../lib/api';
+import { apiUrl } from '../lib/api';
 import React, { useState, useEffect, useRef } from 'react';
-import { Plus, ChevronLeft, ChevronRight, X, GripHorizontal, Trash2 } from 'lucide-react';
+import { Plus, X, GripHorizontal, Trash2 } from 'lucide-react';
 
 type SlotType = 'revision' | 'new_task' | 'backlog' | 'extra_curicullar';
 

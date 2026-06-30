@@ -1,11 +1,10 @@
-import { apiUrl, authHeaders } from '../lib/api';
-import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../lib/api';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import {
   RefreshCcw,
   Plus,
   Settings,
-  MoreVertical,
   CheckCircle2,
   Trash2,
   Calendar
@@ -14,12 +13,10 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Revision() {
   const [revisionTasks, setRevisionTasks] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
   const [filterDate, setFilterDate] = useState<string>('');
   
   // New Revision Form State
   const [newTitle, setNewTitle] = useState('');
-  const [newDuration, setNewDuration] = useState('3600');
   
   // Action Modal State
   const [showActionModal, setShowActionModal] = useState<string | null>(null);
@@ -56,8 +53,6 @@ export default function Revision() {
       }
     } catch (error) {
       console.error('Failed to fetch revision tasks', error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -74,7 +69,7 @@ export default function Revision() {
         },
         body: JSON.stringify({
           title: newTitle,
-          duration_required: parseInt(newDuration),
+          duration_required: 3600,
         })
       });
       if (response.ok) {

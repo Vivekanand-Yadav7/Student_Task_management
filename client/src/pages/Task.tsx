@@ -1,5 +1,5 @@
-import { apiUrl, authHeaders } from '../lib/api';
-import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../lib/api';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import {
   Bell,
@@ -16,7 +16,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Task() {
   const [tasks, setTasks] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
   const [isCreatingTask, setIsCreatingTask] = useState(false);
   const navigate = useNavigate();
 
@@ -56,8 +55,6 @@ export default function Task() {
       }
     } catch (error) {
       console.error('Failed to fetch tasks', error);
-    } finally {
-      setLoading(false);
     }
   };
 

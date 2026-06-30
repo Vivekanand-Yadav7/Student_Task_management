@@ -1,4 +1,4 @@
-import { apiUrl, authHeaders } from '../lib/api';
+import { apiUrl } from '../lib/api';
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import {
